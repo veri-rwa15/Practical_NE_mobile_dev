@@ -3,7 +3,7 @@ const { connect } = mongoose;
 import { config } from "dotenv";
 config({ path: "./.env" });
 
-connect("mongodb://127.0.0.1:27017/tokensys", {
+connect("mongodb://127.0.0.1:27017/EUCL_Tokens", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

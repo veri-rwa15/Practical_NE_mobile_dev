@@ -1,11 +1,11 @@
 {
-  "name": "VotingSystem",
+  "name": "EUCL_Tokenisation_System",
   "version": "1.0.0",
   "main": "src/index.js",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "yarn run lint && nodemon src/index.js",
+    "start": "npm run lint && nodemon src/index.js",
     "lint": "eslint src --ext .js --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
