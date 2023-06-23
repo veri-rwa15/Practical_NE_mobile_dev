@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "git pull && npm run lint && expo start",
+    "start": "git pull && npm run lint",
     "lint": "eslint src --ext .js --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
