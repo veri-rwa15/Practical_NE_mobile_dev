@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-const API_URL = "http://192.168.0.105:4000";
+const API_URL = "http://192.168.0.56:3000";
 export default API_URL;
 
 export const sendRequest = async (api, method, payload = {}) => {
@@ -9,7 +9,7 @@ export const sendRequest = async (api, method, payload = {}) => {
   const headers = {
     headers: {
       "Content-Type": "application/json",
-    },
+    }, 
   };
 
   if (token != null) {

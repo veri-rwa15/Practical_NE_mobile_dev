@@ -1,14 +1,7 @@
 import mongoose from "mongoose";
 
 const purchasedTokenSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true,
-    min: 0,
-    max: 99999999999,
-  },
-  meterNumber: {
+  meter_number: {
     type: String,
     required: true,
     minlength: 6,
@@ -20,18 +13,18 @@ const purchasedTokenSchema = new mongoose.Schema({
     minlength: 8,
     maxlength: 8,
   },
-  tokenStatus: {
+  token_status: {
     type: String,
     enum: ["USED", "NEW", "EXPIRED"],
     required: true,
   },
-  tokenValueDays: {
+  token_value_days: {
     type: Number,
     required: true,
     min: 0,
     max: 99999999999,
   },
-  purchasedDate: {
+  purchased_date: {
     type: Date,
     default: Date.now,
   },
@@ -44,6 +37,6 @@ const purchasedTokenSchema = new mongoose.Schema({
 });
 
 export const PurchasedToken = mongoose.model(
-  "puschased_tokens",
+  "purchased_tokens",
   purchasedTokenSchema
 );

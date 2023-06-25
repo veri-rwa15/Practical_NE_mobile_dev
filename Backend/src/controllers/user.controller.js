@@ -7,7 +7,6 @@ import {
   successResponse,
 } from "../utils/api.response.js";
 import _ from "lodash";
-import { VoteCandidate } from "../models/VoteCandidate.model.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -34,40 +33,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const registerAsVoter = async (req, res) => {
-  try {
-    let checkEmail = await User.findOne({ email: req.body.email });
-    if (checkEmail) return errorResponse("Email is already registered!", res);
 
-    let checkPhone = await User.findOne({ phone: req.body.phone });
-    if (checkPhone)
-      return errorResponse("Phone number is already registered!", res);
-
-    let checkNationalId = await User.findOne({
-      nationalId: req.body.nationalId,
-    });
-    if (checkNationalId)
-      return errorResponse("National ID is already registered!", res);
-
-    let user = new User(_.pick(req.body, ["name", "email", "password"]));
-
-    const salt = await genSalt(10);
-    user.password = await hash(user.password, salt);
-
-    try {
-      await user.save();
-      return createSuccessResponse(
-        "User registered successfully. You can now login",
-        {},
-        res
-      );
-    } catch (ex) {
-      return errorResponse(ex.message, res);
-    }
-  } catch (ex) {
-    return serverErrorResponse(ex, res);
-  }
-};
 
 export const login = async (req, res) => {
   try {
@@ -87,25 +53,6 @@ export const login = async (req, res) => {
   }
 };
 
-export const getProfile = async (req, res) => {
-  try {
-    let user = await User.findById(req.user._id);
-    if (!user) return errorResponse("User not found!", res);
 
-    return successResponse("Profile", user, res);
-  } catch (ex) {
-    return serverErrorResponse(ex, res);
-  }
-};
 
-export const checkIfUserVoted = async (req, res) => {
-  try {
-    const { _id } = req.user;
-    let checkIfUserVoted = await VoteCandidate.findOne({ voter: _id });
-    if (!checkIfUserVoted)
-      return successResponse("Has user voted?", { voted: false }, res);
-    return successResponse("Has user voted?", { voted: true }, res);
-  } catch (ex) {
-    return serverErrorResponse(ex, res);
-  }
-};
+

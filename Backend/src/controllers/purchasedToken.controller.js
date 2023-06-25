@@ -59,8 +59,10 @@ export const purchaseAToken = async (req, res) => {
       token_value_days: tokenValueDays,
       amount,
     });
+
+    console.log("purchasedToken", purchasedToken);
     await purchasedToken.save();
-    return successResponse(res, "Token purchased successfully", res);
+    return successResponse("Token purchased successfully", purchasedToken, res);
   } catch (ex) {
     return serverErrorResponse(ex, res);
   }
