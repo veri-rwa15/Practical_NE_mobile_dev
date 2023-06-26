@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Text,
   SafeAreaView,
@@ -13,7 +13,6 @@ import { useFormik } from "formik";
 import Button from "../../../components/button";
 import Input from "../../../components/input";
 import API_URL, { sendRequest } from "../../../config/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);

@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Register from "../screens/auth/register";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Login from "../screens/auth/login";
 import Home from "../screens/app/home";
 
