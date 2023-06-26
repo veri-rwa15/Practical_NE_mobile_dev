@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   TouchableOpacity,
+  StyleSheet,
 } from "react-native";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 import * as Yup from "yup";
@@ -95,9 +96,6 @@ const SignUp = ({ navigation }) => {
               >
                 EUCL Token System
               </Text>
-              <Text style={tw`text-[#cccbca] text-center text-xl`}>
-                Register
-              </Text>
             </View>
 
             {error.length > 0 && (
@@ -119,11 +117,10 @@ const SignUp = ({ navigation }) => {
                       value={values[field.value]}
                       security={field.secure}
                       type={field?.type}
-                      borderColor={
-                        touched[field.value] && errors[field.value]
-                          ? "red"
-                          : "gray"
-                      }
+                      style={[
+                        styles.input,
+                        touched[field.value] && errors[field.value] && styles.inputError,
+                      ]}
                     />
                     {touched[field.value] && errors[field.value] && (
                       <Text style={tw`text-red-500`}>
@@ -136,7 +133,7 @@ const SignUp = ({ navigation }) => {
                 <View style={tw`mt-8`}>
                   <Button
                     mode={"contained"}
-                    style={tw`w-full p-[10] mt-4`}
+                    style={styles.button}
                     onPress={handleSubmit}
                   >
                     {loading ? "Registering..." : "Register"}
@@ -160,5 +157,77 @@ const SignUp = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F4F4F4",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  safeArea: {
+    flex: 1,
+    width: "100%",
+    backgroundColor: "#F4F4F4",
+  },
+  content: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+  },
+  titleContainer: {
+    width: "100%",
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#223458",
+    marginTop: 10,
+  },
+  errorText: {
+    marginTop: 10,
+    textAlign: "center",
+    color: "red",
+  },
+  fieldsContainer: {
+    paddingHorizontal: 20,
+    marginTop: 20,
+    borderRadius: 10,
+    backgroundColor: "white",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 30,
+    padding: 10,
+    marginBottom: 10,
+  },
+  inputError: {
+    borderColor: "red",
+  },
+  buttonContainer: {
+    marginTop: 20,
+  },
+  button: {
+    paddingVertical: 10,
+    marginTop: 10,
+    borderRadius: 30,
+    backgroundColor: "dodgerblue",
+  },
+  tokenContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
+  tokenText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#223458",
+    marginBottom: 10,
+  },
+  tokensContainer: {
+    marginTop: 20,
+  },
+});
 
 export default SignUp;

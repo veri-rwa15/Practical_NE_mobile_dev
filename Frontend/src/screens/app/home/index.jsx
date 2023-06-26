@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   SafeAreaView,
@@ -13,9 +13,11 @@ import { useFormik } from "formik";
 import Button from "../../../components/button";
 import Input from "../../../components/input";
 import API_URL, { sendRequest } from "../../../config/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
+  const [isLoadingFetchData, setIsLoadingFetchData] = useState(false);
   const [error, setError] = useState("");
   const [token, setToken] = useState("");
   const [tokenValueDays, setTokenValueDays] = useState("");
@@ -68,7 +70,10 @@ const Home = () => {
     resetForm,
   } = formik;
 
+  // Function for handling GetAllTokens Buttons
+
   const handleOnPress = async () => {
+    setIsLoadingFetchData(true);
     setError("");
 
     try {
@@ -85,12 +90,15 @@ const Home = () => {
       console.log("error", error);
     }
   };
-
+  // Function to handle buy submit button (Sends request to the backend)
+ 
   async function handleSubmit() {
     setLoading(true);
     setError("");
 
     try {
+
+      // Sending the request to the backend
       const response = await sendRequest(API_URL + "/tokens/buy", "POST", values);
 
       if (response?.data?.status == 200) {
@@ -107,6 +115,7 @@ const Home = () => {
       console.log("error", error);
     }
   }
+
 
   return (
     <View style={styles.container}>
@@ -157,21 +166,14 @@ const Home = () => {
                 </Button>
               </View>
 
-              <View style={styles.tokenContainer}>
-                {hasFinishedToFetchData && (
-                  <>
-                    <Text style={styles.tokenText}>Your token is {token}</Text>
-                    <Text style={styles.tokenText}>Lighting Days {tokenValueDays}</Text>
-                  </>
-                )}
-              </View>
+              
 
               <Button
                 mode="contained"
                 style={styles.button}
                 onPress={handleOnPress}
               >
-                {loading ? "Getting tokens..." : "Get tokens"}
+                {isLoadingFetchData ? "Getting tokens..." : "Get tokens"}
               </Button>
             </View>
 
@@ -184,6 +186,16 @@ const Home = () => {
                 ))
               )}
             </View>
+
+            <View style={styles.tokenContainer}>
+                {hasFinishedToFetchData && (
+                  <>
+                    <Text style={styles.tokenText}>Your token is {token}</Text>
+                    <Text style={styles.tokenText}>Lighting Days {tokenValueDays}</Text>
+                  </>
+                )}
+              </View>
+
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -216,6 +228,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "#223458",
+    marginTop: 10,
   },
   errorText: {
     marginTop: 10,
