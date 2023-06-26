@@ -5,7 +5,7 @@ import { Button as PaperButton } from "react-native-paper";
 export default function Button({ mode, style, ...props }) {
   return (
     <PaperButton
-      style={[styles.button, { backgroundColor: "#223458" }, style]}
+      style={[styles.button, { backgroundColor: "dodgerBlue" }, style]}
       labelStyle={styles.text}
       mode={mode}
       {...props}
